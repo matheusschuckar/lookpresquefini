@@ -12,7 +12,6 @@ type Item = {
 
 export default function BottomNav() {
   const pathname = usePathname();
-
   const isActive = (href: string) =>
     href === "/" ? pathname === "/" : pathname.startsWith(href);
 
@@ -23,7 +22,7 @@ export default function BottomNav() {
       icon: (active) => (
         <svg
           aria-hidden="true"
-          className={`h-6 w-6 ${active ? "text-black" : "text-gray-500"}`}
+          className={`h-6 w-6 ${active ? "text-black" : "text-stone-600"}`}
           viewBox="0 0 24 24"
           fill="none"
           stroke="currentColor"
@@ -43,7 +42,7 @@ export default function BottomNav() {
       icon: (active) => (
         <svg
           aria-hidden="true"
-          className={`h-6 w-6 ${active ? "text-black" : "text-gray-500"}`}
+          className={`h-6 w-6 ${active ? "text-black" : "text-stone-600"}`}
           viewBox="0 0 24 24"
           fill="none"
           stroke="currentColor"
@@ -69,7 +68,7 @@ export default function BottomNav() {
       icon: (active) => (
         <svg
           aria-hidden="true"
-          className={`h-6 w-6 ${active ? "text-black" : "text-gray-500"}`}
+          className={`h-6 w-6 ${active ? "text-black" : "text-stone-600"}`}
           viewBox="0 0 24 24"
           fill="none"
           stroke="currentColor"
@@ -89,7 +88,7 @@ export default function BottomNav() {
       icon: (active) => (
         <svg
           aria-hidden="true"
-          className={`h-6 w-6 ${active ? "text-black" : "text-gray-500"}`}
+          className={`h-6 w-6 ${active ? "text-black" : "text-stone-600"}`}
           viewBox="0 0 24 24"
           fill="none"
           stroke="currentColor"
@@ -107,12 +106,17 @@ export default function BottomNav() {
   ];
 
   return (
-    <nav className="fixed inset-x-0 bottom-0 z-50 pb-[env(safe-area-inset-bottom)]">
+    // z-30 para ficar ATRÁS do menu lateral (que deve usar z-40/50)
+    <nav className="fixed inset-x-0 bottom-0 z-30 pb-[env(safe-area-inset-bottom)]">
       <div className="mx-auto max-w-md px-4">
-        {/* SOLIDO no off-white quente */}
         <div
-          className="flex h-[var(--bottom-nav-h)] items-center justify-between rounded-2xl border border-warm shadow-soft px-4"
-          style={{ backgroundColor: "var(--surface)" }}
+          className="
+            flex h-[var(--bottom-nav-h)] items-center justify-between
+            rounded-2xl border border-[var(--border-warm)]
+            shadow-soft px-4
+            bg-[var(--surface)]
+            backdrop-blur
+          "
         >
           {items.map((it) => {
             const active = isActive(it.href);
@@ -125,7 +129,7 @@ export default function BottomNav() {
                 {it.icon(active)}
                 <span
                   className={`mt-0.5 text-[11px] ${
-                    active ? "text-black font-medium" : "text-gray-600"
+                    active ? "text-black font-medium" : "text-stone-700"
                   }`}
                 >
                   {it.label}
