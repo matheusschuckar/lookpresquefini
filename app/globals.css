@@ -5,17 +5,17 @@
 /* ===== Vars globais ===== */
 :root {
   /* Canvas (fundo da página) */
-  --background: #F9F7F5;   /* 👈 off-white quente definitivo */
+  --background: #F9F7F5;   /* off-white quente, fundo global */
   --foreground: #111111;
 
   /* Layout */
   --bottom-nav-h: 88px;
 
   /* Paleta de superfícies */
-  --surface: #FFFFFFFA;        /* cards/botões/bottom bar — branco com leve transparência */
-  --surface-strong: #F3EFE9;   /* contraste suave para tabs/inputs */
-  --chip: #F3EFE9;             /* pills/inputs */
-  --border-warm: #E8DFD4;      /* borda quentinha */
+  --surface: #F3EFE9;        /* cards/botões/bottom bar */
+  --surface-strong: #EDE7E1; /* contraste leve dentro de cards */
+  --chip: #E8E1DA;           /* pills/inputs mais quentes */
+  --border-warm: #E0D7CC;    /* borda quentinha */
   --shadow-soft: 0 6px 24px rgba(17,17,17,0.06);
 }
 
