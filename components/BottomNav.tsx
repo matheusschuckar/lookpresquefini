@@ -107,9 +107,9 @@ export default function BottomNav() {
   ];
 
   return (
-    <nav className="fixed inset-x-0 bottom-0 z-10 pb-[env(safe-area-inset-bottom)]">
+    <nav className="fixed inset-x-0 bottom-0 z-50 pb-[env(safe-area-inset-bottom)]">
       <div className="mx-auto max-w-md px-4">
-        <div className="flex items-center justify-between rounded-2xl border border-gray-200 bg-white/90 backdrop-blur-lg shadow-lg px-4 py-2">
+        <div className="flex h-[var(--bottom-nav-h)] items-center justify-between rounded-2xl border border-gray-200 bg-white/90 backdrop-blur-lg shadow-lg px-4">
           {items.map((it) => {
             const active = isActive(it.href);
             return (
