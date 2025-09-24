@@ -5,7 +5,7 @@ import BottomNavGate from "@/components/BottomNavGate"; // ou caminho relativo
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="pt-BR">
-      <body className="bg-white text-black antialiased">
+      <body className="bg-[var(--background)] text-black antialiased">
         {children}
         <BottomNavGate />
       </body>
