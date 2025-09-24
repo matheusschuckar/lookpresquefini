@@ -1105,8 +1105,6 @@ export default function Home() {
         </div>
       )}
 
-      <BottomNav />
-      <div style={{ height: "calc(88px + env(safe-area-inset-bottom))" }} />
     </main>
   );
 }
