@@ -23,7 +23,6 @@ function AuthInner() {
   const next = useMemo(() => {
     try {
       const decoded = decodeURIComponent(nextRaw);
-      // evita open redirect para domínios externos
       if (/^https?:\/\//i.test(decoded)) return '/';
       return decoded || '/';
     } catch {
@@ -52,22 +51,17 @@ function AuthInner() {
     setErr(null);
     try {
       if (mode === 'signin') {
-        const { error } = await supabase.auth.signInWithPassword({
-          email,
-          password,
-        });
+        const { error } = await supabase.auth.signInWithPassword({ email, password });
         if (error) throw error;
         router.replace(next);
       } else {
         const { data, error } = await supabase.auth.signUp({ email, password });
         if (error) throw error;
-
         if (data?.user) {
           await supabase
             .from('user_profiles')
             .upsert({ id: data.user.id, email }, { onConflict: 'id' });
         }
-
         router.replace(`/profile?next=${encodeURIComponent(nextRaw)}`);
       }
     } catch (e: any) {
@@ -78,7 +72,11 @@ function AuthInner() {
   }
 
   return (
-    <main className="min-h-screen bg-neutral-50">
+    // ==== FUNDO OFF-WHITE QUENTE ====
+    <main
+      className="min-h-screen"
+      style={{ backgroundColor: '#F9F7F5' }} // mesmo tom usado no resto do app
+    >
       {/* Header */}
       <div className="mx-auto max-w-md px-5 pt-10">
         <h1 className="text-4xl font-semibold tracking-tight text-black">Look</h1>
@@ -87,13 +85,21 @@ function AuthInner() {
 
       {/* Card */}
       <div className="mx-auto mt-6 max-w-md px-5">
-        <div className="rounded-2xl bg-white p-6 shadow-sm ring-1 ring-black/5">
+        <div
+          className="
+            rounded-2xl p-6
+            bg-white/85 backdrop-blur
+            ring-1 ring-[rgba(0,0,0,0.06)]
+            shadow-[0_6px_24px_-10px_rgba(0,0,0,0.18)]
+          "
+        >
           {/* Tabs */}
           <div className="mb-6">
             <div
               role="tablist"
               aria-label="Auth mode"
-              className="relative grid grid-cols-2 rounded-xl bg-neutral-100 p-1"
+              className="relative grid grid-cols-2 rounded-xl p-1"
+              style={{ backgroundColor: 'rgba(0,0,0,0.04)' }} // off-white levemente mais escuro
             >
               <span
                 aria-hidden
@@ -106,7 +112,7 @@ function AuthInner() {
                 aria-selected={mode === 'signin'}
                 onClick={() => setMode('signin')}
                 className={`relative z-10 h-9 rounded-lg text-sm font-semibold transition 
-                  focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black/20
+                  focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black/15
                   ${mode === 'signin' ? 'text-black' : 'text-neutral-600 hover:text-neutral-800'}`}
               >
                 Sign in
@@ -116,7 +122,7 @@ function AuthInner() {
                 aria-selected={mode === 'signup'}
                 onClick={() => setMode('signup')}
                 className={`relative z-10 h-9 rounded-lg text-sm font-semibold transition 
-                  focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black/20
+                  focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black/15
                   ${mode === 'signup' ? 'text-black' : 'text-neutral-600 hover:text-neutral-800'}`}
               >
                 Create account
@@ -128,16 +134,14 @@ function AuthInner() {
           <form onSubmit={handleSubmit} className="space-y-4">
             {/* Email */}
             <div>
-              <label className="mb-1 block text-sm font-medium text-neutral-800">
-                Email
-              </label>
+              <label className="mb-1 block text-sm font-medium text-neutral-800">Email</label>
               <input
                 type="email"
                 inputMode="email"
                 required
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                className="w-full rounded-xl border border-neutral-200 bg-white px-3 py-3 text-[15px] text-neutral-900 placeholder:text-neutral-400 outline-none focus:ring-2 focus:ring-black/10"
+                className="w-full rounded-xl border border-neutral-200 bg-white/90 px-3 py-3 text-[15px] text-neutral-900 placeholder:text-neutral-400 outline-none focus:ring-2 focus:ring-black/10"
                 placeholder="you@email.com"
                 autoComplete="email"
               />
@@ -146,9 +150,7 @@ function AuthInner() {
             {/* Password + Forgot */}
             <div>
               <div className="mb-1 flex items-center justify-between">
-                <label className="block text-sm font-medium text-neutral-800">
-                  Password
-                </label>
+                <label className="block text-sm font-medium text-neutral-800">Password</label>
                 {mode === 'signin' && (
                   <button
                     type="button"
@@ -166,7 +168,7 @@ function AuthInner() {
                   minLength={6}
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  className="w-full rounded-xl border border-neutral-200 bg-white px-3 py-3 pr-10 text-[15px] text-neutral-900 placeholder:text-neutral-400 outline-none focus:ring-2 focus:ring-black/10"
+                  className="w-full rounded-xl border border-neutral-200 bg-white/90 px-3 py-3 pr-10 text-[15px] text-neutral-900 placeholder:text-neutral-400 outline-none focus:ring-2 focus:ring-black/10"
                   placeholder="••••••••"
                   autoComplete={mode === 'signin' ? 'current-password' : 'new-password'}
                 />
@@ -177,23 +179,11 @@ function AuthInner() {
                   aria-label={showPw ? 'Hide password' : 'Show password'}
                 >
                   {showPw ? (
-                    <svg
-                      viewBox="0 0 24 24"
-                      className="h-5 w-5"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth="1.8"
-                    >
+                    <svg viewBox="0 0 24 24" className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth="1.8">
                       <path d="M2 2l20 20M9.88 9.88A3 3 0 0114.12 14.12M10.73 5.08A9.78 9.78 0 0112 5c5.52 0 10 5 10 7-0.34 0.62-1.14 1.67-2.45 2.8M6.1 6.1C3.86 7.66 2.34 9.72 2 12c0 2 4.48 7 10 7 1.17 0 2.3-.2 3.36-.57" />
                     </svg>
                   ) : (
-                    <svg
-                      viewBox="0 0 24 24"
-                      className="h-5 w-5"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth="1.8"
-                    >
+                    <svg viewBox="0 0 24 24" className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth="1.8">
                       <path d="M2 12s4-7 10-7 10 7 10 7-4 7-10 7-10-7-10-7z" />
                       <circle cx="12" cy="12" r="3" />
                     </svg>
@@ -202,24 +192,14 @@ function AuthInner() {
               </div>
             </div>
 
-            {err && (
-              <p className="rounded-lg bg-red-50 px-3 py-2 text-sm text-red-700">
-                {err}
-              </p>
-            )}
+            {err && <p className="rounded-lg bg-red-50 px-3 py-2 text-sm text-red-700">{err}</p>}
 
             <button
               type="submit"
               disabled={loading}
               className="w-full rounded-xl bg-black px-4 py-3 text-sm font-semibold text-white shadow-sm transition active:scale-[0.99] disabled:opacity-60"
             >
-              {loading
-                ? mode === 'signin'
-                  ? 'Signing in…'
-                  : 'Creating account…'
-                : mode === 'signin'
-                ? 'Sign in'
-                : 'Create account'}
+              {loading ? (mode === 'signin' ? 'Signing in…' : 'Creating account…') : mode === 'signin' ? 'Sign in' : 'Create account'}
             </button>
           </form>
 
