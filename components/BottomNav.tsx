@@ -106,12 +106,14 @@ export default function BottomNav() {
     },
   ];
 
-  return (
-    <nav className="fixed inset-x-0 bottom-0 z-50 pb-[env(safe-area-inset-bottom)]">
-      <div className="mx-auto max-w-md px-4">
-        {/* SOLIDO no off-white quente */}
+   return (
+    <nav className="fixed inset-x-0 bottom-0 z-50">
+      <div
+        className="mx-auto max-w-md px-4"
+        style={{ paddingBottom: "env(safe-area-inset-bottom)" }}
+      >
         <div
-          className="flex h-[var(--bottom-nav-h)] items-center justify-between rounded-2xl border border-warm shadow-soft px-4"
+          className="flex h-[var(--bottom-nav-h)] items-center justify-between rounded-t-2xl border border-warm shadow-soft px-4"
           style={{ backgroundColor: "var(--surface)" }}
         >
           {items.map((it) => {
