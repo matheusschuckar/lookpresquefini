@@ -770,35 +770,25 @@ export default function Home() {
           ) : (
             <div className="mt-3 flex items-center justify-between">
               <div className="overflow-x-auto no-scrollbar -ml-1 pr-2">
-                <div className="flex gap-2 pl-1">
-                  {[
-                    "Tudo",
-                    "camiseta",
-                    "camisa",
-                    "vestido",
-                    "saia",
-                    "calça",
-                    "sapato",
-                    "bolsa",
-                    "jaqueta",
-                  ].map((c) => {
-                    const active = chipCategory === c;
-                    return (
-                      <button
-                        key={c}
-                        onClick={() => setChipCategory(c)}
-                        className={`px-3 h-9 rounded-full border text-sm whitespace-nowrap ${
-                          active
-                            ? "bg-black text-white border-black"
-                            : "bg-white text-gray-800 border-gray-200 hover:bg-gray-50"
-                        }`}
-                      >
-                        {c[0].toUpperCase() + c.slice(1)}
-                      </button>
-                    );
-                  })}
-                </div>
-              </div>
+  <div className="flex gap-2 pl-1">
+    {chipCategories.map((c) => {
+      const active = chipCategory === c;
+      return (
+        <button
+          key={c}
+          onClick={() => setChipCategory(c)}
+          className={`px-3 h-9 rounded-full border text-sm whitespace-nowrap transition ${
+            active
+              ? "bg-black text-white border-black"
+              : "surface border-warm text-gray-800 hover:opacity-95"
+          }`}
+        >
+          {c[0].toUpperCase() + c.slice(1)}
+        </button>
+      );
+    })}
+  </div>
+</div>
 
               <button
                 type="button"
