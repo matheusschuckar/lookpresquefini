@@ -401,7 +401,7 @@ export default function Home() {
 
   // Render
   return (
-    <main className="canvas text-black max-w-md mx-auto min-h-screen px-5 pb-10">
+    <main className="bg-[var(--background)] text-black max-w-md mx-auto min-h-screen px-5 pb-10">
       {/* Header */}
       <div className="pt-6 flex items-start justify-between">
         <div>
