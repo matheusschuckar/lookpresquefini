@@ -3,17 +3,24 @@
 import { usePathname } from "next/navigation";
 import BottomNav from "@/components/BottomNav";
 
-const SHOW_ROUTES = ["/", "/saved", "/stores", "/bag", "/orders"];
+/**
+ * Esconda a BottomNav só onde NÃO deve aparecer.
+ * Use prefixos: qualquer rota que comece com esses caminhos será ocultada.
+ */
+const HIDE_ROUTES = [
+  "/auth",
+  "/profile",
+  "/product/",
+  "/orders/", // detalhe de pedido; lista de pedidos (/orders) continua com a barra
+];
 
 export default function BottomNavGate() {
-  const pathname = usePathname();
+  const pathname = usePathname() ?? "/";
 
-  const show = SHOW_ROUTES.some((base) =>
-    base === "/"
-      ? pathname === "/"
-      : pathname === base || pathname.startsWith(base + "/")
+  const hide = HIDE_ROUTES.some((base) =>
+    pathname === base || pathname.startsWith(base)
   );
 
-  if (!show) return null;
+  if (hide) return null;
   return <BottomNav />;
 }
