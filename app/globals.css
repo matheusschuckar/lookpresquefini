@@ -55,19 +55,23 @@ body {
 /* Todo bg branco vira a nossa superfície quente */
 .bg-white { background-color: var(--surface) !important; }
 
-/* Versões com opacidade do Tailwind (atenção à barra escapada \/) */
-.bg-white\/95 { background-color: rgba(243, 239, 233, .95) !important; } /* #F3EFE9 */
+/* Versões com opacidade do Tailwind */
+.bg-white\/95 { background-color: rgba(243, 239, 233, .95) !important; }
 .bg-white\/90 { background-color: rgba(243, 239, 233, .90) !important; }
 .bg-white\/85 { background-color: rgba(243, 239, 233, .85) !important; }
 .bg-white\/80 { background-color: rgba(243, 239, 233, .80) !important; }
 .bg-white\/70 { background-color: rgba(243, 239, 233, .70) !important; }
 
-/* “quase branco” usado como canvas */
-.bg-neutral-50, .bg-gray-50   { background-color: var(--background) !important; }
+/* Qualquer coisa que era "cinza claro" → chip quente */
+.bg-neutral-50, .bg-gray-50,
+.bg-neutral-100, .bg-gray-100 {
+  background-color: var(--chip) !important;
+}
 
-/* chips/pills e superfícies claras */
-.bg-neutral-100, .bg-gray-100 { background-color: var(--chip) !important; }
-
-/* bordas frias -> borda quente */
-.border-gray-200, .border-neutral-200 { border-color: var(--border-warm) !important; }
-.ring-gray-200, .ring-neutral-200     { --tw-ring-color: var(--border-warm) !important; }
+/* Bordas frias → borda quente */
+.border-gray-200, .border-neutral-200 {
+  border-color: var(--border-warm) !important;
+}
+.ring-gray-200, .ring-neutral-200 {
+  --tw-ring-color: var(--border-warm) !important;
+}
