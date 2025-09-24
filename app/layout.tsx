@@ -1,17 +1,24 @@
+// app/layout.tsx
 import "./globals.css";
-import type { ReactNode } from "react";
-import BottomNavGate from "@/components/BottomNavGate";
+import type { Metadata } from "next";
 
-export const viewport = { viewportFit: "cover" }; // mantém safe-area no iOS
+export const metadata: Metadata = {
+  title: "Look",
+  description: "Ready to wear in minutes",
+};
 
-export default function RootLayout({ children }: { children: ReactNode }) {
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="pt-BR">
-     <body className="text-black antialiased bg-[var(--background)]">
-        <main className="with-bottom-nav min-h-screen canvas">
-          {children}
-        </main>
-        <BottomNavGate />
+      <head>
+        {/* status bar do iOS / PWA no mesmo tom */}
+        <meta name="theme-color" content="#F9F7F5" />
+      </head>
+      <body
+        className="min-h-dvh text-black"
+        style={{ backgroundColor: "#F9F7F5" }} // 👈 força o off-white quente no app inteiro
+      >
+        {children}
       </body>
     </html>
   );
