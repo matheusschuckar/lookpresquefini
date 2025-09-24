@@ -793,7 +793,7 @@ export default function Home() {
               <button
                 type="button"
                 onClick={() => setFilterOpen(true)}
-                className="ml-2 inline-flex items-center gap-1 h-9 px-3 rounded-full border border-warm chip white text-sm hover:bg-gray-50"
+                className="ml-2 inline-flex items-center gap-1 h-9 px-3 rounded-full border border-warm chip text-sm hover:opacity-95"
               >
                 <svg
                   width="16"
