@@ -2,15 +2,24 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Vars globais */
+/* ===== Vars globais ===== */
 :root {
-  /* off-white quente */
+  /* Canvas (fundo da página) */
   --background: #f8f5f2;
   --foreground: #111111;
+
+  /* Layout */
   --bottom-nav-h: 88px;
+
+  /* Paleta de superfícies */
+  --surface: #fffaf3;         /* cards/botões/bottom bar */
+  --surface-strong: #ffffff;  /* quando precisar mais contraste */
+  --chip: #f3efe9;            /* pills/inputs */
+  --border-warm: #e8dfd4;     /* borda quentinha */
+  --shadow-soft: 0 6px 24px rgba(17,17,17,0.06);
 }
 
-/* garante fundo global */
+/* ===== Base ===== */
 html, body {
   background-color: var(--background) !important;
   color: var(--foreground);
@@ -24,19 +33,19 @@ body {
   text-rendering: optimizeLegibility;
 }
 
-/* Reserve espaço no final das páginas para o BottomNav fixo */
+/* Reserva espaço para a BottomNav fixa */
 .with-bottom-nav {
   padding-bottom: calc(var(--bottom-nav-h) + env(safe-area-inset-bottom));
 }
 
-/* Oculta scrollbar em listas horizontais (usada nos chips) */
-.no-scrollbar::-webkit-scrollbar {
-  display: none;
-}
-.no-scrollbar {
-  -ms-overflow-style: none; /* IE/Edge */
-  scrollbar-width: none; /* Firefox */
-}
-/* Plano de fundo do app (canvas) e superfícies (cards, barras, etc.) */
-.canvas { background-color: var(--background) !important; }
-.surface { background-color: #ffffff !important; }
+/* Oculta scrollbar em listas horizontais */
+.no-scrollbar::-webkit-scrollbar { display: none; }
+.no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+/* ===== Utilitários de tema ===== */
+.canvas         { background-color: var(--background) !important; }
+.surface        { background-color: var(--surface) !important; }
+.surface-strong { background-color: var(--surface-strong) !important; }
+.chip           { background-color: var(--chip) !important; }
+.border-warm    { border-color: var(--border-warm) !important; }
+.shadow-soft    { box-shadow: var(--shadow-soft) !important; }
