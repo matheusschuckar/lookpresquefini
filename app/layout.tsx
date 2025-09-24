@@ -8,7 +8,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="pt-BR">
       <body className="text-black antialiased bg-[var(--background)]">
-        <main className="with-bottom-nav min-h-screen">
+        <main className="with-bottom-nav min-h-screen canvas">
           {children}
         </main>
         <BottomNavGate />
