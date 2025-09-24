@@ -588,12 +588,12 @@ export default function Home() {
               placeholder="Search"
               value={query}
               onChange={(e) => setQuery(e.target.value)}
-              className="w-full rounded-[22px] border border-gray-200 bg-gray-50 pl-9 pr-3 h-11 text-[14px] placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-black/10"
+              className="w-full rounded-[22px] border border-warm chip pl-9 pr-3 h-11 text-[14px] placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-black/10"
             />
           </div>
 
           <div className="shrink-0">
-            <div className="inline-flex items-center gap-1 rounded-[22px] border border-gray-200 bg-white px-3 h-11 text-[12px] text-gray-700">
+            <div className="inline-flex items-center gap-1 rounded-[22px] border border-warm chip px-3 h-11 text-[12px] text-gray-700">
               <svg
                 width="14"
                 height="14"
@@ -1063,10 +1063,10 @@ export default function Home() {
                   return next;
                 });
               }}
-              className="rounded-2xl bg-white shadow-md overflow-hidden hover:shadow-lg transition border border-gray-100"
+              className="rounded-2xl surface shadow-soft overflow-hidden hover:shadow-soft transition border border-warm"
             >
               <div className="relative h-44">
-                <span className="absolute right-2 top-2 rounded-full bg-white/90 backdrop-blur px-2 py-0.5 text-[11px] font-medium shadow border border-gray-200">
+                <span className="absolute right-2 top-2 rounded-full bg-[color:var(--surface-strong)]/95 px-2 py-0.5 text-[11px] font-medium shadow border border-warm">
                   {formatBRL(p.price_tag)}
                 </span>
                 <img
