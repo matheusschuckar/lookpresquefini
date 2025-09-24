@@ -7,6 +7,8 @@ import { useRouter, useSearchParams } from "next/navigation";
 
 type Step = "request" | "verify";
 
+export const dynamic = "force-dynamic";
+
 function OtpPageInner() {
   const router = useRouter();
 
