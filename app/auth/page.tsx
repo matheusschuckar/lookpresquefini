@@ -1,34 +1,44 @@
-"use client";
+'use client';
 
-import { useEffect, useMemo, useState } from "react";
-import { useRouter, useSearchParams } from "next/navigation";
-import { supabase } from "../../lib/supabaseClient";
+import { Suspense, useEffect, useMemo, useState } from 'react';
+import { useRouter, useSearchParams } from 'next/navigation';
+import { supabase } from '../../lib/supabaseClient';
 
-export default function AuthPage() {
+// evita SSG nessa rota e previne o "prerender-error" no build
+export const dynamic = 'force-dynamic';
+
+export default function Page() {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <AuthInner />
+    </Suspense>
+  );
+}
+
+function AuthInner() {
   const router = useRouter();
   const search = useSearchParams();
-  const nextRaw = search?.get("next") || "/";
+  const nextRaw = search?.get('next') || '/';
 
   const next = useMemo(() => {
     try {
       const decoded = decodeURIComponent(nextRaw);
-      // evita open-redirect para domínios externos
-      if (/^https?:\/\//i.test(decoded)) return "/";
-      return decoded || "/";
+      // evita open redirect para domínios externos
+      if (/^https?:\/\//i.test(decoded)) return '/';
+      return decoded || '/';
     } catch {
-      return "/";
+      return '/';
     }
   }, [nextRaw]);
 
-  const [mode, setMode] = useState<"signin" | "signup">("signin");
-
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [mode, setMode] = useState<'signin' | 'signup'>('signin');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
   const [showPw, setShowPw] = useState(false);
   const [loading, setLoading] = useState(false);
   const [err, setErr] = useState<string | null>(null);
 
-  // Se já estiver logado, manda para `next`
+  // se já estiver logado, redireciona para next
   useEffect(() => {
     (async () => {
       const { data } = await supabase.auth.getSession();
@@ -41,8 +51,7 @@ export default function AuthPage() {
     setLoading(true);
     setErr(null);
     try {
-      if (mode === "signin") {
-        // SIGN IN: respeita o next (se veio da Bag, vai pro PIX)
+      if (mode === 'signin') {
         const { error } = await supabase.auth.signInWithPassword({
           email,
           password,
@@ -50,22 +59,19 @@ export default function AuthPage() {
         if (error) throw error;
         router.replace(next);
       } else {
-        // SIGN UP: cria conta e SEMPRE manda para o /profile antes,
-        // carregando o next para ser usado depois do perfil.
         const { data, error } = await supabase.auth.signUp({ email, password });
         if (error) throw error;
 
         if (data?.user) {
           await supabase
-            .from("user_profiles")
-            .upsert({ id: data.user.id, email }, { onConflict: "id" });
+            .from('user_profiles')
+            .upsert({ id: data.user.id, email }, { onConflict: 'id' });
         }
 
-        // Envie o usuário ao Profile com o next original preservado
         router.replace(`/profile?next=${encodeURIComponent(nextRaw)}`);
       }
     } catch (e: any) {
-      setErr(e?.message || "Algo deu errado. Tente novamente.");
+      setErr(e?.message || 'Algo deu errado. Tente novamente.');
     } finally {
       setLoading(false);
     }
@@ -75,12 +81,8 @@ export default function AuthPage() {
     <main className="min-h-screen bg-neutral-50">
       {/* Header */}
       <div className="mx-auto max-w-md px-5 pt-10">
-        <h1 className="text-4xl font-semibold tracking-tight text-black">
-          Look
-        </h1>
-        <p className="mt-1 text-sm text-neutral-600">
-          Ready to wear in minutes
-        </p>
+        <h1 className="text-4xl font-semibold tracking-tight text-black">Look</h1>
+        <p className="mt-1 text-sm text-neutral-600">Ready to wear in minutes</p>
       </div>
 
       {/* Card */}
@@ -96,41 +98,33 @@ export default function AuthPage() {
               <span
                 aria-hidden
                 className={`absolute inset-y-1 left-1 w-[calc(50%-0.25rem)] rounded-lg bg-white shadow-sm transition-transform duration-200 ${
-                  mode === "signin" ? "translate-x-0" : "translate-x-full"
+                  mode === 'signin' ? 'translate-x-0' : 'translate-x-full'
                 }`}
               />
               <button
                 role="tab"
-                aria-selected={mode === "signin"}
-                onClick={() => setMode("signin")}
+                aria-selected={mode === 'signin'}
+                onClick={() => setMode('signin')}
                 className={`relative z-10 h-9 rounded-lg text-sm font-semibold transition 
                   focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black/20
-                  ${
-                    mode === "signin"
-                      ? "text-black"
-                      : "text-neutral-600 hover:text-neutral-800"
-                  }`}
+                  ${mode === 'signin' ? 'text-black' : 'text-neutral-600 hover:text-neutral-800'}`}
               >
                 Sign in
               </button>
               <button
                 role="tab"
-                aria-selected={mode === "signup"}
-                onClick={() => setMode("signup")}
+                aria-selected={mode === 'signup'}
+                onClick={() => setMode('signup')}
                 className={`relative z-10 h-9 rounded-lg text-sm font-semibold transition 
                   focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black/20
-                  ${
-                    mode === "signup"
-                      ? "text-black"
-                      : "text-neutral-600 hover:text-neutral-800"
-                  }`}
+                  ${mode === 'signup' ? 'text-black' : 'text-neutral-600 hover:text-neutral-800'}`}
               >
                 Create account
               </button>
             </div>
           </div>
 
-          {/* Form — apenas e-mail e senha */}
+          {/* Form */}
           <form onSubmit={handleSubmit} className="space-y-4">
             {/* Email */}
             <div>
@@ -155,10 +149,10 @@ export default function AuthPage() {
                 <label className="block text-sm font-medium text-neutral-800">
                   Password
                 </label>
-                {mode === "signin" && (
+                {mode === 'signin' && (
                   <button
                     type="button"
-                    onClick={() => router.push("/auth/otp")}
+                    onClick={() => router.push('/auth/otp')}
                     className="text-xs text-neutral-500 hover:text-neutral-800 underline"
                   >
                     Esqueci minha senha
@@ -167,22 +161,20 @@ export default function AuthPage() {
               </div>
               <div className="relative">
                 <input
-                  type={showPw ? "text" : "password"}
+                  type={showPw ? 'text' : 'password'}
                   required
                   minLength={6}
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   className="w-full rounded-xl border border-neutral-200 bg-white px-3 py-3 pr-10 text-[15px] text-neutral-900 placeholder:text-neutral-400 outline-none focus:ring-2 focus:ring-black/10"
                   placeholder="••••••••"
-                  autoComplete={
-                    mode === "signin" ? "current-password" : "new-password"
-                  }
+                  autoComplete={mode === 'signin' ? 'current-password' : 'new-password'}
                 />
                 <button
                   type="button"
                   onClick={() => setShowPw((v) => !v)}
                   className="absolute inset-y-0 right-0 mr-2 grid w-8 place-items-center rounded-lg text-neutral-500 hover:text-neutral-800"
-                  aria-label={showPw ? "Hide password" : "Show password"}
+                  aria-label={showPw ? 'Hide password' : 'Show password'}
                 >
                   {showPw ? (
                     <svg
@@ -222,18 +214,17 @@ export default function AuthPage() {
               className="w-full rounded-xl bg-black px-4 py-3 text-sm font-semibold text-white shadow-sm transition active:scale-[0.99] disabled:opacity-60"
             >
               {loading
-                ? mode === "signin"
-                  ? "Signing in…"
-                  : "Creating account…"
-                : mode === "signin"
-                ? "Sign in"
-                : "Create account"}
+                ? mode === 'signin'
+                  ? 'Signing in…'
+                  : 'Creating account…'
+                : mode === 'signin'
+                ? 'Sign in'
+                : 'Create account'}
             </button>
           </form>
 
           <p className="mt-4 text-center text-[12px] leading-5 text-neutral-500">
-            By continuing, you agree to Look’s{" "}
-            <span className="underline">Terms</span> and{" "}
+            By continuing, you agree to Look’s <span className="underline">Terms</span> and{' '}
             <span className="underline">Privacy</span>.
           </p>
         </div>
