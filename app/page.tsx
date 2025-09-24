@@ -445,8 +445,8 @@ export default function Home() {
       </div>
 
       {/* Drawer */}
-      {drawerOpen && (
-  <div className="fixed inset-0 z-50">
+     {drawerOpen && (
+  <div className="fixed inset-0 z-[70]">
     <div
       className="absolute inset-0 bg-black/30"
       onClick={() => setDrawerOpen(false)}
@@ -815,7 +815,7 @@ export default function Home() {
 
           {/* Modal de filtros */}
           {filterOpen && (
-            <div className="fixed inset-0 z-50">
+            <div className="fixed inset-0 z-70">
               <div
                 className="absolute inset-0 bg-black/30"
                 onClick={() => setFilterOpen(false)}
