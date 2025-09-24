@@ -109,7 +109,13 @@ export default function BottomNav() {
   return (
     <nav className="fixed inset-x-0 bottom-0 z-50 pb-[env(safe-area-inset-bottom)]">
       <div className="mx-auto max-w-md px-4">
-<div className="flex h-[var(--bottom-nav-h)] items-center justify-between rounded-2xl border border-warm bg-[color:var(--background)] shadow-soft px-4"            const active = isActive(it.href);
+        {/* SOLIDO no off-white quente */}
+        <div
+          className="flex h-[var(--bottom-nav-h)] items-center justify-between rounded-2xl border border-warm shadow-soft px-4"
+          style={{ backgroundColor: "var(--surface)" }}
+        >
+          {items.map((it) => {
+            const active = isActive(it.href);
             return (
               <Link
                 key={it.href}
