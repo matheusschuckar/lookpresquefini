@@ -1066,7 +1066,7 @@ export default function Home() {
               className="rounded-2xl surface shadow-soft overflow-hidden hover:shadow-soft transition border border-warm"
             >
               <div className="relative h-44">
-                <span className="absolute right-2 top-2 rounded-full bg-[color:var(--surface-strong)]/95 px-2 py-0.5 text-[11px] font-medium shadow border border-warm">
+                <span className="absolute right-2 top-2 rounded-full bg-[color:var(--surface-strong)] px-2 py-0.5 text-[11px] font-medium shadow border border-warm">
                   {formatBRL(p.price_tag)}
                 </span>
                 <img
