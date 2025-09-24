@@ -85,28 +85,28 @@ function AuthInner() {
 
       {/* Card */}
       <div className="mx-auto mt-6 max-w-md px-5">
-        <div
-          className="
-            rounded-2xl p-6
-            bg-white/85 backdrop-blur
-            ring-1 ring-[rgba(0,0,0,0.06)]
-            shadow-[0_6px_24px_-10px_rgba(0,0,0,0.18)]
-          "
+  <div
+    className="
+      rounded-2xl p-6
+      bg-[var(--surface)] backdrop-blur
+      ring-1 ring-[rgba(0,0,0,0.08)]
+      shadow-[0_6px_24px_-10px_rgba(0,0,0,0.18)]
+    "
+  >
         >
           {/* Tabs */}
           <div className="mb-6">
             <div
-              role="tablist"
-              aria-label="Auth mode"
-              className="relative grid grid-cols-2 rounded-xl p-1"
-              style={{ backgroundColor: 'rgba(0,0,0,0.04)' }} // off-white levemente mais escuro
-            >
-              <span
-                aria-hidden
-                className={`absolute inset-y-1 left-1 w-[calc(50%-0.25rem)] rounded-lg bg-white shadow-sm transition-transform duration-200 ${
-                  mode === 'signin' ? 'translate-x-0' : 'translate-x-full'
-                }`}
-              />
+  role="tablist"
+  aria-label="Auth mode"
+  className="relative grid grid-cols-2 rounded-xl p-1 bg-[var(--surface-strong)]"
+>
+  <span
+    aria-hidden
+    className={`absolute inset-y-1 left-1 w-[calc(50%-0.25rem)] rounded-lg bg-[var(--surface)] shadow-sm transition-transform duration-200 ${
+      mode === 'signin' ? 'translate-x-0' : 'translate-x-full'
+    }`}
+  />
               <button
                 role="tab"
                 aria-selected={mode === 'signin'}
@@ -141,7 +141,7 @@ function AuthInner() {
                 required
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                className="w-full rounded-xl border border-neutral-200 bg-white/90 px-3 py-3 text-[15px] text-neutral-900 placeholder:text-neutral-400 outline-none focus:ring-2 focus:ring-black/10"
+                className="w-full rounded-xl border border-[rgba(0,0,0,0.08)] bg-[var(--surface)] px-3 py-3 text-[15px] text-neutral-900 placeholder:text-neutral-400 outline-none focus:ring-2 focus:ring-black/10"
                 placeholder="you@email.com"
                 autoComplete="email"
               />
@@ -168,7 +168,7 @@ function AuthInner() {
                   minLength={6}
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  className="w-full rounded-xl border border-neutral-200 bg-white/90 px-3 py-3 pr-10 text-[15px] text-neutral-900 placeholder:text-neutral-400 outline-none focus:ring-2 focus:ring-black/10"
+                  className="w-full rounded-xl border border-[rgba(0,0,0,0.08)] bg-[var(--surface)] px-3 py-3 pr-10 text-[15px] text-neutral-900 placeholder:text-neutral-400 outline-none focus:ring-2 focus:ring-black/10"
                   placeholder="••••••••"
                   autoComplete={mode === 'signin' ? 'current-password' : 'new-password'}
                 />
