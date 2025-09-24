@@ -414,59 +414,55 @@ export default function Home() {
         </div>
 
         {/* Menu ou Login */}
-        {!loading && !profile ? (
-          <Link
-            href="/auth"
-            className="mt-1 inline-flex items-center rounded-full border border-gray-200 bg-white px-3 h-9 text-sm font-medium hover:bg-gray-50 transition"
-            aria-label="Login"
-            title="Login"
-          >
-            Login
-          </Link>
-        ) : (
-          <button
-            onClick={() => setDrawerOpen(true)}
-            className="mt-1 inline-flex h-9 w-9 items-center justify-center rounded-full border border-gray-200 bg-white hover:bg-gray-50 transition"
-            aria-label="Menu"
-            title="Menu"
-          >
-            <svg
-              width="18"
-              height="18"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              className="text-gray-700"
-            >
-              <path
-                strokeWidth="2"
-                strokeLinecap="round"
-                d="M4 6h16M4 12h16M4 18h16"
-              />
-            </svg>
-          </button>
-        )}
+{!loading && !profile ? (
+  <Link
+    href="/auth"
+    className="mt-1 inline-flex items-center rounded-full border border-warm bg-[color:var(--surface)] shadow-soft px-3 h-9 text-sm font-medium hover:opacity-95 transition"
+    aria-label="Login"
+    title="Login"
+  >
+    Login
+  </Link>
+) : (
+  <button
+    onClick={() => setDrawerOpen(true)}
+    className="mt-1 inline-flex h-9 w-9 items-center justify-center rounded-full border border-warm bg-[color:var(--surface)] shadow-soft active:scale-[0.98] transition"
+    aria-label="Menu"
+    title="Menu"
+  >
+    <svg
+      width="18"
+      height="18"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      className="text-gray-800"
+    >
+      <path strokeWidth="2" strokeLinecap="round" d="M4 6h16M4 12h16M4 18h16" />
+    </svg>
+  </button>
+)}
       </div>
 
       {/* Drawer */}
       {drawerOpen && (
-        <div className="fixed inset-0 z-50">
-          <div
-            className="absolute inset-0 bg-black/30"
-            onClick={() => setDrawerOpen(false)}
-          />
-          <div className="absolute right-0 top-0 bottom-0 w-72 bg-white shadow-xl flex flex-col">
-            <div className="flex items-center justify-between px-4 h-14 border-b">
-              <span className="font-semibold">Menu</span>
-              <button
-                onClick={() => setDrawerOpen(false)}
-                className="h-8 w-8 flex items-center justify-center rounded-full hover:bg-gray-100"
-                aria-label="Fechar"
-                title="Fechar"
-              >
-                ✕
-              </button>
-            </div>
+  <div className="fixed inset-0 z-50">
+    <div
+      className="absolute inset-0 bg-black/30"
+      onClick={() => setDrawerOpen(false)}
+    />
+    <div className="absolute right-0 top-0 bottom-0 w-72 surface-strong shadow-xl flex flex-col">
+      <div className="flex items-center justify-between px-4 h-14 border-b border-warm">
+        <span className="font-semibold">Menu</span>
+        <button
+          onClick={() => setDrawerOpen(false)}
+          className="h-8 w-8 flex items-center justify-center rounded-full hover:bg-[color:var(--chip)]"
+          aria-label="Fechar"
+          title="Fechar"
+        >
+          ✕
+        </button>
+      </div>
             <nav className="flex-1 px-4 py-4 text-sm">
               <ul className="space-y-3">
                 <li>
