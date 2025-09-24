@@ -4,16 +4,17 @@
 
 /* Vars globais */
 :root {
+  /* off-white quente */
   --background: #f8f5f2;
   --foreground: #111111;
-  --bottom-nav-h: 88px; /* altura aproximada do BottomNav */
+  --bottom-nav-h: 88px;
 }
 
-/* Força tema claro (ignora prefers-color-scheme) */
-html,
-body {
-  background: var(--background);
+/* garante fundo global */
+html, body {
+  background-color: var(--background) !important;
   color: var(--foreground);
+  height: 100%;
 }
 
 body {
